@@ -47,5 +47,5 @@ class Sender(threading.Thread):
         )
 
 while True:
-    time.sleep(5)
     Sender().start()
+    time.sleep(5)
