@@ -7,6 +7,7 @@ import linux_metrics
 
 from netavg import NetAvg
 from conf import *
+import pingdom
 
 netavg = NetAvg()
 netavg.start()
@@ -36,6 +37,10 @@ class Sender(threading.Thread):
             metrics['gauges'].append(net_rx)
         if net_tx is not None:
             metrics['gauges'].append(net_tx)
+
+        response_time = pingdom.get_response_time()
+        if response_time is not None:
+            metrics['gauges'].append(response_time)
 
         payload = json.dumps(metrics)
 
