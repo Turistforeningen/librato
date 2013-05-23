@@ -1,3 +1,5 @@
 distribute==0.6.34
 linux-metrics==0.1.4
 requests==1.2.0
+sh==1.08
+wsgiref==0.1.2
