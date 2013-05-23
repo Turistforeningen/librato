@@ -8,9 +8,11 @@ import linux_metrics
 from netavg import NetAvg
 from conf import *
 import pingdom
+from sherpa import Sherpa
 
 netavg = NetAvg()
 netavg.start()
+sherpa = Sherpa()
 
 class Sender(threading.Thread):
     def run(self):
@@ -41,6 +43,10 @@ class Sender(threading.Thread):
         response_time = pingdom.get_response_time()
         if response_time is not None:
             metrics['gauges'].append(response_time)
+
+        sherpa_metrics = sherpa.get_metrics()
+        metrics['gauges'].extend(sherpa_metrics['gauges'])
+        metrics['counters'].extend(sherpa_metrics['counters'])
 
         payload = json.dumps(metrics)
 
