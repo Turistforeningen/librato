@@ -9,9 +9,12 @@ from netavg import NetAvg
 from conf import *
 import pingdom
 from sherpa import Sherpa
+from reciever import Reciever
 
 netavg = NetAvg()
 netavg.start()
+reciever = Reciever()
+reciever.start()
 sherpa = Sherpa()
 
 class Sender(threading.Thread):
@@ -47,6 +50,8 @@ class Sender(threading.Thread):
         sherpa_metrics = sherpa.get_metrics()
         metrics['gauges'].extend(sherpa_metrics['gauges'])
         metrics['counters'].extend(sherpa_metrics['counters'])
+
+        metrics['counters'].extend(reciever.get_counters())
 
         payload = json.dumps(metrics)
 
