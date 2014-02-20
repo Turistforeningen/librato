@@ -16,4 +16,4 @@ class Sherpa():
         return self.sherpa_metrics
 
     def query_sherpa(self):
-        return json.loads(str(sh.Command(SHERPA_MANAGE_COMMAND)("libratometrics", _env={"PATH": SHERPA_ENV})))
+        return json.loads(str(sh.Command(SHERPA_PYTHON_ENV)(SHERPA_MANAGE_COMMAND, "libratometrics")))
